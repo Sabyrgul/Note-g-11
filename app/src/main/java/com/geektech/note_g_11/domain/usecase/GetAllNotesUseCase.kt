@@ -1,8 +1,9 @@
 package com.geektech.note_g_11.domain.usecase
 
 import com.geektech.note_g_11.domain.repository.NoteRepository
+import javax.inject.Inject
 
-class GetAllNotesUseCase(private val repository: NoteRepository) {
+class GetAllNotesUseCase @Inject constructor(private val repository: NoteRepository) {
 
     fun getAllNotes()=repository.getAllNotes()
 }
