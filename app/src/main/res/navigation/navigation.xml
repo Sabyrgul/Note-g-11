@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/notesFragment">
+
+
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.geektech.note_g_11.presentation.add_note.AddNoteFragment"
+        android:label="Add note"
+        tools:layout="@layout/fragment_add_note" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.geektech.note_g_11.presentation.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes" />
+</navigation>
