@@ -13,47 +13,42 @@ import androidx.navigation.fragment.findNavController
 import com.geektech.note_g_11.R
 import com.geektech.note_g_11.databinding.FragmentNotesBinding
 import com.geektech.note_g_11.domain.utils.UIState
+import com.geektech.note_g_11.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NotesFragment : Fragment() {
+class NotesFragment() :
+    BaseFragment<NotesViewModel,FragmentNotesBinding>(FragmentNotesBinding::inflate) {
 
-    private var binding: FragmentNotesBinding? = null
-    private val viewModel: NotesViewModel by viewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding=FragmentNotesBinding.inflate(LayoutInflater.from(context), container,false)
-        return binding?.root
+    override val viewModel: NotesViewModel by viewModels()
+    private val adapter=NoteAdapter()
+
+    override fun initViews() {
+        binding?.rvNotes?.adapter=adapter
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initListener()
-        setupObservers()
-    }
-
-    private fun initListener() {
+    override fun initListeners() {
         binding?.btnFab?.setOnClickListener {
             findNavController().navigate(R.id.addNoteFragment)
         }
+
     }
 
-    private fun setupObservers() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.noteState.collect {
-                    when (it) {
-                        is UIState.Empty -> TODO()
-                        is UIState.Error -> TODO()
-                        is UIState.Loading -> TODO()
-                        is UIState.Success -> TODO()
-                    }
-                }
+    override fun initObservers() {
+        viewModel.noteState.collectStateFlow(
+            loading = {},
+            error = {},
+            success = {
             }
-        }
+        )
 
+        viewModel.deleteState.collectStateFlow(
+            loading = {},
+            error= {},
+            success = {
+
+            }
+        )
     }
 }

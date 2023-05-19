@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class UpdateNoteUseCase @Inject constructor(private val repository: NoteRepository) {
 
-    fun updateNote(note:Note)=repository.updateNote(note)
+    operator fun invoke(note:Note)=repository.updateNote(note)
 }

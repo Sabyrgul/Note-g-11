@@ -7,6 +7,7 @@ import com.geektech.note_g_11.domain.usecase.DeleteNoteUseCase
 import com.geektech.note_g_11.domain.usecase.GetAllNotesUseCase
 import com.geektech.note_g_11.domain.utils.ResultStatus
 import com.geektech.note_g_11.domain.utils.UIState
+import com.geektech.note_g_11.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,35 +20,23 @@ import javax.inject.Inject
 class NotesViewModel @Inject constructor(
     private val getAllNotesUseCase: GetAllNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _notesState = MutableStateFlow<UIState<List<Note>>>(UIState.Loading())
     val noteState: StateFlow<UIState<List<Note>>> = _notesState.asStateFlow()
+
+    private val _deleteState = MutableStateFlow<UIState<Unit>>(UIState.Loading())
+    val deleteState: StateFlow<UIState<Unit>> = _deleteState.asStateFlow()
 
     init {
         getAllNotes()
     }
 
     fun getAllNotes() {
-        viewModelScope.launch {
-            getAllNotesUseCase.getAllNotes().collect {
-                when (it) {
-                    is ResultStatus.Error -> {
-                        _notesState.value = UIState.Error(it.msg!!)
+        getAllNotesUseCase().collectFlow(_notesState)
+    }
 
-                    }
-                    is ResultStatus.Loading -> {
-                        _notesState.value = UIState.Loading()
-
-                    }
-                    is ResultStatus.Success -> {
-                        if (it.data != null)
-                            _notesState.value = UIState.Success(it.data)
-                        else _notesState.value =
-                            UIState.Error("List is empty! Please add some notes!")
-                    }
-                }
-            }
-        }
+    fun delete(note: Note){
+        deleteNoteUseCase(note).collectFlow(_deleteState)
     }
 }
