@@ -2,8 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/notesFragment">
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.geektech.note_g_11.presentation.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes">
+        <action android:id="@+id/action_notesFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment"/>
+    </fragment>
 
 
     <fragment
@@ -11,9 +20,6 @@
         android:name="com.geektech.note_g_11.presentation.add_note.AddNoteFragment"
         android:label="Add note"
         tools:layout="@layout/fragment_add_note" />
-    <fragment
-        android:id="@+id/notesFragment"
-        android:name="com.geektech.note_g_11.presentation.notes.NotesFragment"
-        android:label="Notes"
-        tools:layout="@layout/fragment_notes" />
+
+
 </navigation>

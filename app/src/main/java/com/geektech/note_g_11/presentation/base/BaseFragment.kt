@@ -23,7 +23,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>
     abstract val viewModel: VM
     private var _binding: VB? = null
 
-    protected val binding get()=_binding
+    protected val binding:VB get()=_binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +31,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>
         savedInstanceState: Bundle?
     ): View? {
         _binding= bindingInflater.invoke(inflater)
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

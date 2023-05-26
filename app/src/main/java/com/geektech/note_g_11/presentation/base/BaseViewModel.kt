@@ -17,7 +17,7 @@ abstract class BaseViewModel : ViewModel() {
             this@collectFlow.collect {
                 when (it) {
                     is ResultStatus.Error -> {
-                        state.value = UIState.Error(it.msg)
+                        state.value = it.msg?.let { it1 -> UIState.Error(it1) }!!
                     }
                     is ResultStatus.Loading -> {
                         state.value = UIState.Loading()

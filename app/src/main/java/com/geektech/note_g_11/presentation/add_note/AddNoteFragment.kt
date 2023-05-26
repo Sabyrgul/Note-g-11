@@ -1,49 +1,80 @@
 package com.geektech.note_g_11.presentation.add_note
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.geektech.note_g_11.R
 import com.geektech.note_g_11.databinding.FragmentAddNoteBinding
 import com.geektech.note_g_11.domain.models.Note
+import com.geektech.note_g_11.domain.utils.extension.showToast
+import com.geektech.note_g_11.domain.utils.extension.visibility
 import com.geektech.note_g_11.presentation.base.BaseFragment
+import com.geektech.note_g_11.presentation.notes.NotesFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
-class AddNoteFragment : BaseFragment<AddNoteViewModel,FragmentAddNoteBinding>(FragmentAddNoteBinding::inflate) {
+class AddNoteFragment :
+    BaseFragment<AddNoteViewModel, FragmentAddNoteBinding>(FragmentAddNoteBinding::inflate) {
 
-    override val viewModel:AddNoteViewModel by viewModels()
 
-    override fun initListeners() {
-        binding?.btnSave?.setOnClickListener {
-            val note=Note(
-                title = binding?.etTitle?.text.toString(),
-                description = binding?.etDescription?.text.toString(),
-                id = 0,
-                createdAt = 0
-            )
-            viewModel.createState.collectStateFlow(
-                loading = {},
-                error = {},
-                success = {
-                    viewModel.create(note)
-                }
-            )
+    override val viewModel: AddNoteViewModel by viewModels()
+    private val note by lazy{ requireArguments().getSerializable(NotesFragment.ARG_NOTE_TO_ADD) as Note? }
 
-            viewModel.updateState.collectStateFlow(
-                loading = {},
-                error = {},
-                success = {
-                    viewModel.update(note)
-                }
-            )
-
-            findNavController().navigateUp()
+    override fun initViews() {
+        if(arguments!=null){
+            binding.etTitle.setText(note?.title)
+            binding.etDescription.setText(note?.description)
         }
     }
+    override fun initListeners() {
+        binding.btnSave.setOnClickListener {
+            if(arguments!=null){
+                val note = Note(
+                    title = binding.etTitle.text.toString(),
+                    description = binding.etDescription.text.toString(),
+                    createdAt = System.currentTimeMillis()
+                )
+                viewModel.editNote(note.copy(
+                    title = binding.etTitle.text.toString(),
+                    description = binding.etDescription.text.toString()
+                ))
+            }
+            else{
+                note?.let { it1 -> viewModel.create(it1) }
+            }
+
+        }
+    }
+
+    override fun initObservers() {
+        with(binding){
+        viewModel.createState.collectStateFlow(
+            loading = {
+                addProgress.visibility(true)
+        },
+            error = {
+                addProgress.visibility(false)
+                showToast(it)
+            },
+            success = {
+                addProgress.visibility(false)
+                showToast(R.string.successfully_created)
+                findNavController().navigateUp()
+        })
+            viewModel.updateState.collectStateFlow(
+                loading = {
+                    addProgress.visibility(true)
+                },
+                error = {
+                    addProgress.visibility(false)
+                    showToast(it)
+                },
+                success = {
+                    addProgress.visibility(false)
+                    showToast(R.string.note_successfully_edited)
+                    findNavController().navigateUp()
+                })
+
+    }}
 
 }

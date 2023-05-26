@@ -5,4 +5,9 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="save">Save</string>
+    <string name="data">Data</string>
+    <string name="successfully_deleted">Note successfully deleted</string>
+    <string name="list_is_empty">List is empty! Please add some notes!!</string>
+    <string name="successfully_created">Note successfully created</string>
+    <string name="note_successfully_edited">Note successfully edited</string>
 </resources>
