@@ -35,7 +35,7 @@ class NotesFragment :
 
     override fun initListeners() {
         binding.btnFab.setOnClickListener {
-            findNavController().navigate(R.id.addNoteFragment)
+            findNavController().navigate(R.id.action_notesFragment_to_addNoteFragment)
         }
 
     }

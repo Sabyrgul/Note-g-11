@@ -33,6 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:trackColor="@color/material_dynamic_neutral10" />
+        app:trackColor="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

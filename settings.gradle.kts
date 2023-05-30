@@ -13,4 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Note-g-11"
-include ':app'
+include (":app")
+include (":domain")
+include (":data")
+include(":presentation")

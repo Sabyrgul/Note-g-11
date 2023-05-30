@@ -28,23 +28,27 @@ class AddNoteFragment :
     }
     override fun initListeners() {
         binding.btnSave.setOnClickListener {
+            val note = Note(
+                title = binding.etTitle.text.toString(),
+                description = binding.etDescription.text.toString(),
+                createdAt = System.currentTimeMillis()
+            )
+            viewModel.create(note)
+            findNavController().navigateUp()
             if(arguments!=null){
-                val note = Note(
-                    title = binding.etTitle.text.toString(),
-                    description = binding.etDescription.text.toString(),
-                    createdAt = System.currentTimeMillis()
-                )
                 viewModel.editNote(note.copy(
                     title = binding.etTitle.text.toString(),
                     description = binding.etDescription.text.toString()
                 ))
             }
             else{
-                note?.let { it1 -> viewModel.create(it1) }
+                if(note!=null){
+                viewModel.create(note!!)
+                findNavController().navigateUp()}
+            }
             }
 
         }
-    }
 
     override fun initObservers() {
         with(binding){
@@ -61,7 +65,7 @@ class AddNoteFragment :
                 showToast(R.string.successfully_created)
                 findNavController().navigateUp()
         })
-            viewModel.updateState.collectStateFlow(
+           viewModel.updateState.collectStateFlow(
                 loading = {
                     addProgress.visibility(true)
                 },
