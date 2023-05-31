@@ -1,10 +1,6 @@
 package com.geektech.note_g_11.presentation.add_note
 
-import androidx.lifecycle.ViewModel
 import com.geektech.note_g_11.domain.models.Note
-import com.geektech.note_g_11.domain.usecase.CreateNoteUseCase
-import com.geektech.note_g_11.domain.usecase.UpdateNoteUseCase
-import com.geektech.note_g_11.domain.utils.UIState
 import com.geektech.note_g_11.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,22 +10,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddNoteViewModel @Inject constructor(
-    private val createNoteUseCase: CreateNoteUseCase,
-    private val updateNoteUseCase: UpdateNoteUseCase
+    private val createNoteUseCase: com.geektech.note_g_11.domain.usecase.CreateNoteUseCase,
+    private val updateNoteUseCase: com.geektech.note_g_11.domain.usecase.UpdateNoteUseCase
 ) : BaseViewModel() {
 
-    private val _createState = MutableStateFlow<UIState<Unit>>(UIState.Loading())
-    val createState: StateFlow<UIState<Unit>> = _createState.asStateFlow()
+    private val _createState = MutableStateFlow<com.geektech.note_g_11.domain.UIState<Unit>>(com.geektech.note_g_11.domain.UIState.Loading())
+    val createState: StateFlow<com.geektech.note_g_11.domain.UIState<Unit>> = _createState.asStateFlow()
 
-    private val _updateState = MutableStateFlow<UIState<Unit>>(UIState.Loading())
-    val updateState: StateFlow<UIState<Unit>> = _updateState.asStateFlow()
+    private val _updateState = MutableStateFlow<com.geektech.note_g_11.domain.UIState<Unit>>(com.geektech.note_g_11.domain.UIState.Loading())
+    val updateState: StateFlow<com.geektech.note_g_11.domain.UIState<Unit>> = _updateState.asStateFlow()
 
-    fun create(note:Note) {
+    fun create(note: Note) {
         if (note.title.isNotEmpty()&&note.title.isNotBlank()){
             createNoteUseCase(note).collectFlow(_createState)
         }
         else {
-            _createState.value=UIState.Error("Title is empty")
+            _createState.value= com.geektech.note_g_11.domain.UIState.Error("Title is empty")
         }
     }
 
@@ -38,7 +34,7 @@ class AddNoteViewModel @Inject constructor(
             updateNoteUseCase(note).collectFlow(_updateState)
         }
         else {
-            _updateState.value=UIState.Error("Title is empty")
+            _updateState.value= com.geektech.note_g_11.domain.UIState.Error("Title is empty")
         }
     }
 

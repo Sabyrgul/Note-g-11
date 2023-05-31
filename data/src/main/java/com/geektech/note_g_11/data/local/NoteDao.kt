@@ -16,6 +16,6 @@ interface NoteDao {
     suspend fun update(noteEntity: NoteEntity)
 
     @Query("SELECT * FROM note_entity")
-    suspend fun getAllNotes():List<NoteEntity>
+    suspend fun getAllNotes(): List<NoteEntity>
 
 }

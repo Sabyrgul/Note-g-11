@@ -1,32 +1,26 @@
 package com.geektech.note_g_11.presentation.notes
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.geektech.note_g_11.domain.models.Note
-import com.geektech.note_g_11.domain.usecase.DeleteNoteUseCase
-import com.geektech.note_g_11.domain.usecase.GetAllNotesUseCase
-import com.geektech.note_g_11.domain.utils.ResultStatus
-import com.geektech.note_g_11.domain.utils.UIState
 import com.geektech.note_g_11.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 //@Inject сгенерировать
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val getAllNotesUseCase: GetAllNotesUseCase,
-    private val deleteNoteUseCase: DeleteNoteUseCase
+    private val getAllNotesUseCase: com.geektech.note_g_11.domain.usecase.GetAllNotesUseCase,
+    private val deleteNoteUseCase: com.geektech.note_g_11.domain.usecase.DeleteNoteUseCase
 ) : BaseViewModel() {
 
-    private val _notesState = MutableStateFlow<UIState<List<Note>>>(UIState.Loading())
-    val noteState: StateFlow<UIState<List<Note>>> = _notesState.asStateFlow()
+    private val _notesState = MutableStateFlow<com.geektech.note_g_11.domain.UIState<List<Note>>>(
+        com.geektech.note_g_11.domain.UIState.Loading())
+    val noteState: StateFlow<com.geektech.note_g_11.domain.UIState<List<Note>>> = _notesState.asStateFlow()
 
-    private val _deleteState = MutableStateFlow<UIState<Unit>>(UIState.Loading())
-    val deleteState: StateFlow<UIState<Unit>> = _deleteState.asStateFlow()
+    private val _deleteState = MutableStateFlow<com.geektech.note_g_11.domain.UIState<Unit>>(com.geektech.note_g_11.domain.UIState.Loading())
+    val deleteState: StateFlow<com.geektech.note_g_11.domain.UIState<Unit>> = _deleteState.asStateFlow()
 
     init {
         getAllNotes()

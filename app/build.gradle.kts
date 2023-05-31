@@ -1,20 +1,20 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.APG.application)
+    id(Plugins.Kotlin.kotlin)
+    id(Plugins.Kotlin.kotlinKapt)
+    id(Plugins.hilt)
 }
 
 android {
     namespace = "com.geektech.note_g_11"
-    compileSdk = 33
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
         applicationId = "com.geektech.note_g_11"
-        minSdk = 26
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,27 +47,32 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(project(":data"))
+    implementation(project(":domain"))
+
+    implementation(Dependencies.UI.core)
+    implementation(Dependencies.UI.appcompat)
+    implementation(Dependencies.UI.material)
+    implementation(Dependencies.UI.constraint)
+    implementation(Dependencies.Navigation.navigationFragment)
+    implementation(Dependencies.Navigation.navigationUI)
+    testImplementation(Dependencies.jUnit)
+    androidTestImplementation(Dependencies.Test.jUnit)
+    androidTestImplementation(Dependencies.Test.core)
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("androidx.room:room-runtime:2.5.1")
-    implementation("androidx.room:room-ktx:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+
+    implementation(Dependencies.Room.runtime)
+    kapt(Dependencies.Room.compiler)
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-compiler:2.46.1")
+    implementation(Dependencies.Hilt.android)
+    kapt(Dependencies.Hilt.compiler)
 
     //Coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(Dependencies.Coroutine.core)
 
-    implementation("androidx.fragment:fragment-ktx:1.5.7")
+    implementation(Dependencies.Lifecycle.runtime)
+    implementation(Dependencies.Lifecycle.fragment)
+
 }

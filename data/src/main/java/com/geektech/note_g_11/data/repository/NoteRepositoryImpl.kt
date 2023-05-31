@@ -1,11 +1,11 @@
 package com.geektech.note_g_11.data.repository
 
+import com.geektech.note_g_11.domain.models.Note
+import com.geektech.note_g_11.domain.repository.NoteRepository
 import com.geektech.note_g_11.data.base.BaseRepository
 import com.geektech.note_g_11.data.local.NoteDao
 import com.geektech.note_g_11.data.local.mappers.toNote
 import com.geektech.note_g_11.data.local.mappers.toNoteEntity
-import com.geektech.note_g_11.domain.models.Note
-import com.geektech.note_g_11.domain.repository.NoteRepository
 import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(private val noteDao: NoteDao) : NoteRepository,

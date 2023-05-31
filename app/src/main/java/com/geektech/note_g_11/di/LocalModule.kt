@@ -16,12 +16,13 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun database(@ApplicationContext context: Context):AppDataBase= Room.databaseBuilder(
+    fun database(@ApplicationContext context: Context): AppDataBase = Room.databaseBuilder(
         context,
         AppDataBase::class.java,
-    "Note-DB")
+        "Note-DB"
+    )
         .build()
 
     @Provides
-    fun noteDao(appDataBase: AppDataBase)=appDataBase.noteDao()
+    fun noteDao(appDataBase: AppDataBase) = appDataBase.noteDao()
 }

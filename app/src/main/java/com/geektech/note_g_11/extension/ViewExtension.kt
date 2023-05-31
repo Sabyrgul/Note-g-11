@@ -1,4 +1,4 @@
-package com.geektech.note_g_11.domain.utils.extension
+package com.geektech.note_g_11.extension
 
 import android.view.View
 import android.widget.Toast

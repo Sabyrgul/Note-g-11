@@ -1,6 +1,6 @@
 package com.geektech.note_g_11.data.base
 
-import com.geektech.note_g_11.domain.utils.ResultStatus
+import com.geektech.note_g_11.domain.ResultStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

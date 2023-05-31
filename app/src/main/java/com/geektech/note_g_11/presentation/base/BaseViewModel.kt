@@ -2,8 +2,8 @@ package com.geektech.note_g_11.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.geektech.note_g_11.domain.utils.ResultStatus
-import com.geektech.note_g_11.domain.utils.UIState
+import com.geektech.note_g_11.domain.ResultStatus
+import com.geektech.note_g_11.domain.UIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

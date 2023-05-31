@@ -1,7 +1,7 @@
 package com.geektech.note_g_11.domain.repository
 
+import com.geektech.note_g_11.domain.ResultStatus
 import com.geektech.note_g_11.domain.models.Note
-import com.geektech.note_g_11.domain.utils.ResultStatus
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {

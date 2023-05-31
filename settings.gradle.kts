@@ -14,6 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Note-g-11"
 include (":app")
-include (":domain")
+include (":extraModule")
 include (":data")
 include(":presentation")
+include(":domain")

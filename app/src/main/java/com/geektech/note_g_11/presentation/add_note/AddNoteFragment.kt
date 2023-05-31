@@ -5,8 +5,8 @@ import androidx.navigation.fragment.findNavController
 import com.geektech.note_g_11.R
 import com.geektech.note_g_11.databinding.FragmentAddNoteBinding
 import com.geektech.note_g_11.domain.models.Note
-import com.geektech.note_g_11.domain.utils.extension.showToast
-import com.geektech.note_g_11.domain.utils.extension.visibility
+import com.geektech.note_g_11.extension.showToast
+import com.geektech.note_g_11.extension.visibility
 import com.geektech.note_g_11.presentation.base.BaseFragment
 import com.geektech.note_g_11.presentation.notes.NotesFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,7 @@ class AddNoteFragment :
             }
             else{
                 if(note!=null){
-                viewModel.create(note!!)
+                viewModel.create(note)
                 findNavController().navigateUp()}
             }
             }

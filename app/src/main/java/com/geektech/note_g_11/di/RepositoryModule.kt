@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun NoteRepository(noteRepositoryImpl: NoteRepositoryImpl):NoteRepository
+    abstract fun NoteRepository(noteRepositoryImpl: NoteRepositoryImpl): NoteRepository
 }
